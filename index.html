@@ -3,190 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Ulang Tahun!</title>
+    <title>Countdown Ulang Tahun</title>
     <style>
         body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            background-color: #ffebee;
+            font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fa;
             text-align: center;
             margin: 0;
             padding: 0;
-            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-        }
-        
-        @keyframes gradient {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+            min-height: 100vh;
+            color: #333;
+            background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
         }
         
         .container {
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            background-color: white;
+            padding: 40px 60px;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
             max-width: 800px;
-            margin: 20px;
+            width: 90%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, #667eea, #764ba2);
         }
         
         h1 {
-            color: #e91e63;
-            font-size: 3em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            font-weight: 600;
         }
         
-        p {
-            color: #333;
-            font-size: 1.5em;
+        .subtitle {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+        }
+        
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-box {
+            background-color: white;
+            padding: 25px 15px;
+            border-radius: 8px;
+            min-width: 80px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .countdown-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .countdown-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .countdown-label {
+            font-size: 1rem;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .message {
+            font-size: 1.2rem;
+            margin-top: 30px;
             line-height: 1.6;
-            margin-bottom: 30px;
+            color: #34495e;
         }
         
-        .button {
-            background-color: #e91e63;
+        .hidden {
+            display: none;
+        }
+        
+        .birthday-content {
+            animation: fadeIn 1.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .btn {
+            background: linear-gradient(to right, #667eea, #764ba2);
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 1.5em;
+            padding: 15px 40px;
+            font-size: 1rem;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.4);
-            margin: 20px 0;
-        }
-        
-        .button:hover {
-            background-color: #c2185b;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.6);
-        }
-        
-        .button:active {
-            transform: translateY(1px);
-        }
-        
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: #f00;
-            border-radius: 50%;
-            animation: fall 5s linear infinite;
-        }
-        
-        @keyframes fall {
-            to {
-                transform: translateY(100vh);
-            }
-        }
-        
-        .video-container {
-            display: none;
             margin-top: 30px;
-            width: 100%;
-            max-width: 800px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
         
-        iframe {
-            width: 100%;
-            height: 450px;
-            border-radius: 10px;
-            border: 5px solid #e91e63;
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
         }
         
-        .cake {
-            font-size: 60px;
-            margin: 20px 0;
-            animation: bounce 2s infinite;
+        .signature {
+            margin-top: 40px;
+            font-style: italic;
+            color: #95a5a6;
         }
         
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
             }
-            50% {
-                transform: translateY(-20px);
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .countdown-box {
+                padding: 15px 10px;
+                min-width: 70px;
+            }
+            
+            .countdown-value {
+                font-size: 2rem;
             }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <div class="cake">🎂</div>
-        <h1>Selamat Ulang Tahun!</h1>
-        <p>Hai Aulia</p>
-        <p>Semoga di usia yang ke-18 ini,.</p>
-        <p>Kamu selalu sehat, makin cantik, baik, imut, lucu, pinter.</p>
-        <p>Klik tombol di bawah ini untuk kejutan spesial!</p>
+        <div id="countdown">
+            <h1>Happy Birthday</h1>
+            <h1>Sayang Aulia</h1>
+            <p class="subtitle">Countdown menuju sesuatu yang spesial</p>
+            
+            <div class="countdown-container">
+                <div class="countdown-box">
+                    <div class="countdown-value" id="days">00</div>
+                    <div class="countdown-label">Hari</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-value" id="hours">00</div>
+                    <div class="countdown-label">Jam</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-value" id="minutes">00</div>
+                    <div class="countdown-label">Menit</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-value" id="seconds">00</div>
+                    <div class="countdown-label">Detik</div>
+                </div>
+            </div>
+            
+            <p class="message">Situs spesial akan tersedia ketika waktu yang ditentukan tiba.</p>
+        </div>
         
-        <button class="button" id="birthdayButton">18 Tahun</button>
-        
-        <div class="video-container" id="videoContainer">
-            <iframe src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div id="birthday" class="hidden birthday-content">
+            <h1>Selamat Ulang Tahun!</h1>
+            <p class="subtitle">Hari yang spesial telah tiba</p>
+            
+            <p class="message">Sekarang Aulia dapat mengakses konten spesial yang telah dipersiapkan untuk merayakan hari istimewa ini.</p>
+            
+            <button class="btn" onclick="window.location.href='https://example.com'">
+                Masuk ke Situs Utama
+            </button>
+            
+            <p class="signature">Tertanda Pangeran Jo</p>
         </div>
     </div>
 
     <script>
-        // Membuat confetti
-        function createConfetti() {
-            const colors = ['#e91e63', '#00bcd4', '#ffeb3b', '#4caf50', '#9c27b0'];
-            const confetti = document.createElement('div');
-            confetti.className = 'confetti';
-            confetti.style.left = Math.random() * 100 + 'vw';
-            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            confetti.style.width = Math.random() * 10 + 5 + 'px';
-            confetti.style.height = confetti.style.width;
-            confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
-            document.body.appendChild(confetti);
-            
-            setTimeout(() => {
-                confetti.remove();
-            }, 5000);
-        }
+        // SET TANGGAL ULANG TAHUN DISINI (format: Tahun-Bulan-Tanggal)
+        const birthday = new Date("2025-07-06T23:59:00"); // Ganti dengan tanggal ulang tahun yang diinginkan
         
-        // Membuat banyak confetti
-        function createConfettiBurst() {
-            for (let i = 0; i < 100; i++) {
-                setTimeout(createConfetti, i * 30);
+        function updateCountdown() {
+            const now = new Date();
+            const diff = birthday - now;
+            
+            if (diff <= 0) {
+                // Jika sudah melewati tanggal ulang tahun
+                document.getElementById('countdown').classList.add('hidden');
+                document.getElementById('birthday').classList.remove('hidden');
+                return;
             }
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
         }
         
-        // Menangani klik tombol
-        document.getElementById('birthdayButton').addEventListener('click', function() {
-            createConfettiBurst();
-            
-            // Ganti dengan URL video YouTube yang Anda inginkan
-            const videoUrl = "https://www.youtube.com/embed/d1q7Lf2OeNw";
-            
-            const videoContainer = document.getElementById('videoContainer');
-            const iframe = videoContainer.querySelector('iframe');
-            iframe.src = videoUrl;
-            videoContainer.style.display = 'block';
-            
-            // Scroll ke video
-            videoContainer.scrollIntoView({ behavior: 'smooth' });
-            
-            // Animasi tombol
-            this.textContent = "🎉 Kejutan! 🎉";
-            this.style.backgroundColor = '#4caf50';
-        });
-        
-        // Membuat beberapa confetti saat halaman dimuat
-        setInterval(createConfetti, 300);
+        // Update countdown setiap detik
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Panggil sekali saat pertama kali load
     </script>
 </body>
 </html>
